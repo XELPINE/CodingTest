@@ -1,6 +1,6 @@
 package low
 
-import java.util.*
+import java.util.Scanner;// in the top!
 
 fun main ()
 {
