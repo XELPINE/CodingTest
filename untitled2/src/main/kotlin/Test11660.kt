@@ -1,45 +1,54 @@
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.random.Random.Default.nextInt
 
 fun main() {
 
+    // 1. 입출력은 bufferReader / bufferWriter 쓰자.
+    // 2. 망할 println 버그는 인텔리제이에서만 발생한다.
 
-//    var arr = Array<LongArray>(5, {LongArray(3)})
+    val CODING_MODE = false
 
-    val sc: Scanner = Scanner(System.`in`)
-//    val buffer : BufferedReader = BufferedReader(InputStreamReader(System.`in`))
+    val bufferedReader : BufferedReader = BufferedReader(InputStreamReader(System.`in`))
+    var bufferedWriter = System.out.bufferedWriter()
 
 //    val inputArraySizeAndQuizSize = StringTokenizer(buffer.readLine(), " ")
 
-    val arraySize = sc.nextInt()
-    val quizSize = sc.nextInt()
+    val (arraySize, quizSize) = bufferedReader.readLine().split(' ').map { it.toInt() }
+
+//    val arraySize = inputArraySizeAndQuizSize.nextToken().toInt()
+//    val quizSize = inputArraySizeAndQuizSize.nextToken().toInt()
 
 //    println ("arraySize : " + arraySize)
 //    println ("quizSize : " + quizSize)
 
-    var arr = Array<LongArray>(arraySize+1, {LongArray(arraySize+1)})
-    var arrTempSum = Array<LongArray>(arraySize+1, {LongArray(arraySize+1)})
+    var arr = Array(arraySize+1, {LongArray(arraySize+1)})
+    var arrTempSum = Array(arraySize+1, {LongArray(arraySize+1)})
+
+    if (CODING_MODE) print(" ")
 
     // 숫자 입력받기
     for (index : Int in 1 .. arraySize)
     {
-        // 공백용
-//        val temp1 = buffer.readLine().split(" ").map {  }
-        // 공백용
-
-
-//        val input = StringTokenizer(buffer.readLine(), " ")
+        val elements = bufferedReader.readLine().split(" ").map { it.toInt() }
 
         for (index1 : Int in 1 .. arraySize)
         {
 
-            arr[index][index1] = sc.nextLong()
+            arr[index][index1] = elements.get(index1-1).toLong()
             arrTempSum[index][index1] = arrTempSum[index][index1-1] + arrTempSum[index-1][index1] - arrTempSum[index-1][index1-1] + arr[index][index1]
-//            print(" ")
+
+            if (CODING_MODE) print(" ")
         }
+
+//        val input = StringTokenizer(buffer.readLine(), " ")
+//
+//        for (index1 : Int in 1 .. arraySize)
+//        {
+//
+//            arr[index][index1] = input.nextToken().toLong()
+//            arrTempSum[index][index1] = arrTempSum[index][index1-1] + arrTempSum[index-1][index1] - arrTempSum[index-1][index1-1] + arr[index][index1]
+//            print(" ")
+//        }
     }
 
 //    // 입력 테스트
@@ -78,23 +87,19 @@ fun main() {
 //        println("arrTempSum : " + tempResult)
 //    }
 
-//    val resultArray = mutableListOf<Long>()
 
     for (index : Int in 0 until quizSize)
     {
-        val x1 = sc.nextInt()
-        val y1 = sc.nextInt()
-        val x2 = sc.nextInt()
-        val y2 = sc.nextInt()
+        val (x1, y1, x2, y2) = bufferedReader.readLine().split(' ').map { it.toInt() }
         val result = arrTempSum[x2][y2] - arrTempSum[x1-1][y2] - arrTempSum[x2][y1-1] + arrTempSum[x1-1][y1-1]
 
-//        resultArray.add(result)
+        if (CODING_MODE) print(" ")
 
-        println(result)
+//        println(result)
+        bufferedWriter.write(result.toString())
+        bufferedWriter.newLine()
     }
 
-//    for (index : Int in 0 until resultArray.size)
-//    {
-//        println(resultArray.get(index))
-//    }
+    bufferedWriter.flush()
+    bufferedReader.close()
 }
