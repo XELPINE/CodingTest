@@ -1,7 +1,5 @@
 package programmers
 
-import com.sun.xml.internal.fastinfoset.util.StringArray
-
 fun main()
 {
 
